@@ -6,7 +6,7 @@
 class PerimeterOfRectangle {
 	public static void main(String ...k) {
 		int perimeter = 0, length = 0, breadth = 0;
-		if(k.length<1) {
+		if(k.length<2) {
 			System.out.println("Enter the length and breadth of rectangle");
 			System.exit(1);
 		}
