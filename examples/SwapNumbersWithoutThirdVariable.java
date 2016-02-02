@@ -6,7 +6,7 @@
 class SwapNumbersWithoutThirdVariable {
 	public static void main(String ...k) {
 		int number1 = 0, number2 = 0;
-		if(k.length < 1){
+		if(k.length < 2){
 			System.out.println("Enter the numbers");
 			System.exit(1);
 		}
