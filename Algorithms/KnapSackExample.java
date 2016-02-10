@@ -36,8 +36,19 @@ class KnapSackExample {
 			System.out.println("The sorted profits are:" +p[i]);
 		}
 		for(i=0;i<5;i++){
-			W=W-w[i];
-			System.out.println("Remaining weight:" +W);
+			if(W>w[i]) {
+				W=W-w[i];
+				v[i]=1;
+				System.out.println("Remaining weight:" +W);
+				System.out.println("Corresponding value:" +v[i]);
+			}
+			else {
+				W=W/w[i];
+				v[i]=W;
+				System.out.println("Remaining weight:" +W);
+				System.out.println("Corresponding value:" +v[i]);
+				W=0;
+			}
 		}
 	}
 }
