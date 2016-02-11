@@ -44,24 +44,28 @@ class KnapSackExample {
 			System.out.println("The sorted weigths are:" +w[i]);
 			System.out.println("The sorted values are:" +v[i]);
 		}
-		for(i=0;i<5;i++){
-			if(W>w[i]) {
-				W=W-w[i];
-				x[i]=1;
-				System.out.println("Remaining weight:" +W);
-				System.out.println("Corresponding value:" +v[i]);
-			}
-			else {
-				W=W/w[i];
-				x[i]=W;
-				W=0;
-				System.out.println("Remaining weight:" +W);
-				System.out.println("Corresponding value:" +x[i]);
+		//add condition W > 0 since you cannot add more items then capacity so there is no point
+		//running for loop after capacity is full i.e. in our case W = 0
+		//for(i=0;i<5;i++){
+		for(i = 0; i < 5 && W > 0; ++i) {
+			if(W > w[i]) {
+				W = W - w[i];
+				x[i] = 1;
+				System.out.println("Remaining weight:" + W);
+				System.out.println("Corresponding value:" + v[i]);
+			} else {
+				W = W / w[i];
+				x[i] = W;
+				W = 0;
+				System.out.println("Remaining weight:" + W);
+				System.out.println("Corresponding value:" + x[i]);
 			}
 		}
-		for(i=0;i<5;i++) {
-			sum = sum + v[i]*x[i];
+		//same as above there is no point running loop after you encountered x[i] = 0 as we can gurantee that
+		//if you find single x[i] = 0 there all the remaining x[i] will be zero.
+		for(i=0; i < 5 && x[i] > 0; ++i) {
+			sum = sum + v[i] * x[i];
 		}
-		System.out.println("Optimal value:" +sum);
+		System.out.println("Optimal value: " + sum);
 	}
 }
