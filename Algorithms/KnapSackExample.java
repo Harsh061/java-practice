@@ -2,7 +2,7 @@ import java.util.Scanner;
 class KnapSackExample {
 	public static void main(String ...k) {
 		Scanner sc = new Scanner(System.in);
-		float W = 0F,temp=0F, temp1=0F, temp2=0F, sum=0F;
+		float W = 0.0F,temp=0.0F, temp1=0.0F, temp2=0.0F, sum=0.0F;
 		int i,j;
 		float w[] = new float[5];
 		float v[] = new float[5];
