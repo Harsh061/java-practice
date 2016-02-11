@@ -1,54 +1,65 @@
 import java.util.Scanner;
-class KnapSackExample {
-	public static void main(String ...k) {
+
+class Item {
+    int value, weight;
+    float ratio;
+}
+
+class KnapSack {
+	public static void main(String ... k) {
 		Scanner sc = new Scanner(System.in);
-		float W = 0F,temp=0F;
-		int i,j;
-		float w[] = new float[5];
-		float v[] = new float[5];
-		float p[] = new float[5];
-		System.out.println("Enter the weights :");
-		for(i=0;i<5;i++){
-			w[i] = sc.nextFloat();
+		int number, capacity;
+		float profit = 0;
+		System.out.println("Enter total number of items");
+		number = sc.nextInt();
+		Item items[] = new Item[number];
+		System.out.println("Enter Knapsack Capacity");
+		capacity = sc.nextInt();
+		System.out.println("Enter weight and value pair");
+		for(int i = 0; i < number; ++i) {
+			items[i] = new Item();
+			items[i].value = sc.nextInt();
+			items[i].weight = sc.nextInt();
+			items[i].ratio = (float)(items[i].value) / (float)(items[i].weight);
 		}
-		System.out.println("Enter the values :");
-		for(i=0;i<5;i++){
-			v[i] = sc.nextFloat();
-		}
-		System.out.println("Enter the capacity:");
-		W = sc.nextFloat();
-		for(i=0;i<5;i++){
-			p[i] = v[i]/w[i];
-			System.out.println("The profits are:" +p[i]);
-		}
-		for(i=0;i<5;i++){
-			for(j=0;j<4;j++){
-				if(p[j] < p[j+1]){
-					temp = p[j];
-					p[j]=p[j+1];
-					p[j+1]=temp;
-				} 
-				else
-					p[j]=p[j];
+
+		System.out.println("Ratio of value by weight is");
+		for(int i = 0; i < number; ++i)
+			System.out.print(items[i].ratio + " ");
+		System.out.println();
+		
+		//Insertion sort perform better here
+		for(int i = 0; i < number - 1; ++i) {
+			int idx = i;
+			float maxratio = items[i].ratio;
+			for(int j = i + 1; j < number; ++j) {
+				if(maxratio < items[j].ratio) {
+					maxratio = items[j].ratio;
+					idx = j;	
+				}
+			}
+			if(idx != i) {
+				Item ref = items[i];
+				items[i] = items[idx];
+				items[idx] = ref;
 			}
 		}
-		for(i=0;i<5;i++){
-			System.out.println("The sorted profits are:" +p[i]);
-		}
-		for(i=0;i<5;i++){
-			if(W>w[i]) {
-				W=W-w[i];
-				v[i]=1;
-				System.out.println("Remaining weight:" +W);
-				System.out.println("Corresponding value:" +v[i]);
-			}
-			else {
-				W=W/w[i];
-				v[i]=W;
-				System.out.println("Remaining weight:" +W);
-				System.out.println("Corresponding value:" +v[i]);
-				W=0;
+
+		System.out.println("Ratio of value by weight after sorting is");
+		for(int i = 0; i < number; ++i)
+			System.out.print(items[i].ratio + " ");
+		System.out.println();
+
+		for(int i = 0; i < number && capacity > 0; ++i) {
+			if(capacity >= items[i].weight) {
+				capacity -= items[i].weight;
+				profit += items[i].value;
+			} else {
+				profit += items[i].value * (capacity / (float)items[i].weight);
+				capacity = 0;
 			}
 		}
+		System.out.println("Maximum profit you can get is: " + profit);
+		System.out.println();
 	}
 }
